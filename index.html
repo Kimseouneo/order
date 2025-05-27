@@ -46,31 +46,31 @@
 <body>
   <h1>냉장고 부탁해! 주문서</h1>
 
-  <form id="orderForm">
+  <form action="https://formsubmit.co/seongwong421@gmail.com" method="POST">
     <span class="subtitle">세트 메뉴</span>
-    <select id="setMenu">
-      <option value="none">선택 안함</option>
+    <select name="세트 메뉴">
+      <option value="선택 안함">선택 안함</option>
       <option value="냉장고 세트">냉장고 세트 - 메인 2개, 사이드 1개 (44,900원)</option>
       <option value="부탁해 세트">부탁해 세트 - 메인 1개, 사이드 2개 (39,900원)</option>
       <option value="이벤트">이벤트 메뉴 - 셰프가 선택 (1인당 14,900원)</option>
     </select>
 
-    <span class="subtitle">메인 메뉴 (필요한 수만큼 선택)</span>
-    <select id="main1">
+    <span class="subtitle">메인 메뉴</span>
+    <select name="메인 메뉴 1">
       <option value="없음">선택 안함</option>
       <option value="우삼겹&비빔면">우삼겹&비빔면 (19900)</option>
       <option value="어묵탕">어묵탕 (19900)</option>
       <option value="우삼겹숙주볶음">우삼겹숙주볶음 (19900)</option>
     </select>
-    <select id="main2">
+    <select name="메인 메뉴 2">
       <option value="없음">선택 안함</option>
       <option value="우삼겹&비빔면">우삼겹&비빔면 (19900)</option>
       <option value="어묵탕">어묵탕 (19900)</option>
       <option value="우삼겹숙주볶음">우삼겹숙주볶음 (19900)</option>
     </select>
 
-    <span class="subtitle">사이드 메뉴 (필요한 수만큼 선택)</span>
-    <select id="side1">
+    <span class="subtitle">사이드 메뉴</span>
+    <select name="사이드 메뉴 1">
       <option value="없음">선택 안함</option>
       <option value="토마토 계란볶음">토마토 계란볶음 (9900)</option>
       <option value="먹태">먹태 (15900)</option>
@@ -78,7 +78,7 @@
       <option value="황도 화채">황도 화채 (9900)</option>
       <option value="콘치즈">콘치즈 (5900)</option>
     </select>
-    <select id="side2">
+    <select name="사이드 메뉴 2">
       <option value="없음">선택 안함</option>
       <option value="토마토 계란볶음">토마토 계란볶음 (9900)</option>
       <option value="먹태">먹태 (15900)</option>
@@ -89,91 +89,20 @@
 
     <span class="subtitle">주문자 정보</span>
     <label for="name">이름:</label>
-    <input type="text" id="name" required>
+    <input type="text" name="이름" required>
 
     <label for="phone">전화번호:</label>
-    <input type="tel" id="phone" required>
+    <input type="tel" name="전화번호" required>
+
+    <input type="hidden" name="_subject" value="새 주문이 도착했습니다!">
+    <input type="hidden" name="_captcha" value="false">
 
     <button type="submit">주문하기</button>
   </form>
 
-  <div id="result"></div>
   <div class="account-info" onclick="copyAccount()">💳 입금 계좌: 국민 944502-00-883512 (클릭 시 복사)</div>
 
   <script>
-    const prices = {
-      setMenu: {
-        '냉장고 세트': 44900,
-        '부탁해 세트': 39900,
-        '이벤트': 14900
-      },
-      main: {
-        '우삼겹&비빔면': 19900,
-        '어묵탕': 19900,
-        '우삼겹숙주볶음': 19900
-      },
-      side: {
-        '토마토 계란볶음': 9900,
-        '먹태': 15900,
-        '깍두기': 6900,
-        '황도 화채': 9900,
-        '콘치즈': 5900
-      }
-    };
-
-    document.getElementById('orderForm').addEventListener('submit', function(e) {
-      e.preventDefault();
-
-      const setMenu = document.getElementById('setMenu').value;
-      const main1 = document.getElementById('main1').value;
-      const main2 = document.getElementById('main2').value;
-      const side1 = document.getElementById('side1').value;
-      const side2 = document.getElementById('side2').value;
-      const name = document.getElementById('name').value;
-      const phone = document.getElementById('phone').value;
-
-      let total = 0;
-
-      if (setMenu !== 'none') {
-        total += prices.setMenu[setMenu];
-      } else {
-        if (main1 !== '없음') total += prices.main[main1];
-        if (main2 !== '없음') total += prices.main[main2];
-        if (side1 !== '없음') total += prices.side[side1];
-        if (side2 !== '없음') total += prices.side[side2];
-      }
-
-      const message =
-        `${name}님 주문 내역:\n` +
-        `세트: ${setMenu !== 'none' ? setMenu : '선택 안함'}\n` +
-        `메인: ${main1}` + (main2 !== "없음" ? ", " + main2 : "") + "\n" +
-        `사이드: ${side1}` + (side2 !== "없음" ? ", " + side2 : "") + "\n" +
-        `총 금액: ${total.toLocaleString()}원\n` +
-        `연락처: ${phone}`;
-
-      document.getElementById('result').innerText = message;
-
-      // Google Apps Script Webhook 연동
-      fetch('https://script.google.com/macros/s/AKfycbyvN96NKMvVWSZqz7A_UmQ4H-3k6OMpw60VXnpdThEzwTHmYZ_GXQChmlUoB-1wLT-0/exec', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          name,
-          phone,
-          setMenu,
-          main1,
-          main2,
-          side1,
-          side2,
-          total
-        })
-      })
-      .then(res => res.text())
-      .then(result => {
-        console.log('Google Sheets 저장 결과:', result);
-      });
-    });
-
     function copyAccount() {
       const temp = document.createElement('textarea');
       temp.value = '국민 944502-00-883512';
