@@ -152,6 +152,26 @@
         `연락처: ${phone}`;
 
       document.getElementById('result').innerText = message;
+
+      // Google Apps Script Webhook 연동
+      fetch('https://script.google.com/macros/s/AKfycbyvN96NKMvVWSZqz7A_UmQ4H-3k6OMpw60VXnpdThEzwTHmYZ_GXQChmlUoB-1wLT-0/exec', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          name,
+          phone,
+          setMenu,
+          main1,
+          main2,
+          side1,
+          side2,
+          total
+        })
+      })
+      .then(res => res.text())
+      .then(result => {
+        console.log('Google Sheets 저장 결과:', result);
+      });
     });
 
     function copyAccount() {
