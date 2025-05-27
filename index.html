@@ -187,7 +187,18 @@
         if (prices.side[side2]) total += prices.side[side2];
       }
 
-      document.getElementById('totalDisplay').innerText = `총 금액: ${total.toLocaleString()}원`;
+      document.getElementById('totalDisplay').innerText =
+        `🧊 선택한 메뉴 내역
+` +
+        `세트: ${set}
+` +
+        `메인: ${main1}` + (main2 !== '없음' ? ", " + main2 : '') + "
+" +
+        `사이드: ${side1}` + (side2 !== '없음' ? ", " + side2 : '') + "
+
+" +
+        `총 금액: ${total.toLocaleString()}원`;
+      document.getElementById('totalHidden').value = `${total.toLocaleString()}원`;
       document.getElementById('totalHidden').value = `${total.toLocaleString()}원`;
     }
 
