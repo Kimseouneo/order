@@ -2,14 +2,21 @@
 <html lang="ko">
 <head>
   <meta charset="UTF-8">
+  <style>
+    @font-face {
+      font-family: 'AjouFont';
+      src: url('AjouTTF.ttf') format('truetype');
+      font-weight: normal;
+      font-style: normal;
+    }
+  </style>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Nanum+Gothic&display=swap" rel="stylesheet">
-  <title>냉장고를 부탁해?</title>
+    <title>냉장고를 부탁해?</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <style>
     body {
-      font-family: 'Nanum Gothic', sans-serif;
+      font-family: 'AjouFont', sans-serif;
       max-width: 600px;
       margin: auto;
       padding: 20px;
@@ -25,6 +32,25 @@
       width: 100%;
       padding: 10px;
       font-size: 16px;
+      border-radius: 8px;
+      transition: all 0.2s ease;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+    }
+
+    select {
+      background: #e8f7ff;
+      border: 2px solid #bbe6ff;
+    }
+
+    select:hover {
+      background: #d0f0ff;
+      border-color: #7ddfff;
+    }
+
+    select:focus {
+      outline: none;
+      border-color: #33ccff;
+      box-shadow: 0 0 5px #66ddff;
     }
     #result {
       margin-top: 20px;
