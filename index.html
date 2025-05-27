@@ -28,10 +28,18 @@
       padding: 10px;
       background: #e0ffe0;
       border: 1px solid #b2ffb2;
+      white-space: pre-line;
     }
     .subtitle {
       font-weight: bold;
       margin-top: 30px;
+    }
+    .account-info {
+      margin-top: 10px;
+      background: #fff4cc;
+      padding: 10px;
+      border: 1px solid #ffe58f;
+      cursor: pointer;
     }
   </style>
 </head>
@@ -90,6 +98,7 @@
   </form>
 
   <div id="result"></div>
+  <div class="account-info" onclick="copyAccount()">💳 입금 계좌: 국민 944502-00-883512 (클릭 시 복사)</div>
 
   <script>
     const prices = {
@@ -144,6 +153,16 @@
 
       document.getElementById('result').innerText = message;
     });
+
+    function copyAccount() {
+      const temp = document.createElement('textarea');
+      temp.value = '국민 944502-00-883512';
+      document.body.appendChild(temp);
+      temp.select();
+      document.execCommand('copy');
+      document.body.removeChild(temp);
+      alert('계좌번호가 복사되었습니다!');
+    }
   </script>
 </body>
 </html>
