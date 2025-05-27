@@ -38,7 +38,7 @@
     }
 
     select {
-      background: #e8f7ff;
+      background: white;
       border: 2px solid #bbe6ff;
     }
 
@@ -131,7 +131,7 @@
     <input type="hidden" name="_subject" value="새 주문이 도착했습니다!">
     <input type="hidden" name="_captcha" value="false">
 
-    <button type="button" onclick="calculateTotal()">주문내역 확인</button>
+    <button id="reviewBtn" type="button">🧾 주문 내역 보기</button>
     <div id="totalDisplay"></div>
     <button type="submit">주문하기</button>
   </form>
@@ -139,6 +139,7 @@
   <div class="account-info" onclick="copyAccount()">💳 입금 계좌: 국민 945802-00-985831 (클릭 시 복사)</div>
 
   <script>
+    document.getElementById('reviewBtn').addEventListener('click', calculateTotal);
     function copyAccount() {
       const temp = document.createElement('textarea');
       temp.value = '국민 945802-00-985831';
@@ -198,7 +199,7 @@
 
 " +
         `총 금액: ${total.toLocaleString()}원`;
-      document.getElementById('totalHidden').value = `${total.toLocaleString()}원`;
+      document.getElementById('totalHidden').value = total.toLocaleString() + '원';
     }
 
     function handleSubmit() {
