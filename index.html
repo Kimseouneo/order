@@ -176,21 +176,22 @@
       if (setMenu !== '선택 안함') {
         total += prices.set[setMenu];
         summary += `세트 메뉴: ${setMenu} (${prices.set[setMenu].toLocaleString()}원)\n`;
+        summary += '메인 메뉴 및 사이드는 세트에 포함되어 별도 가격 추가 없음\n';
       }
-
-      [main1, main2].forEach(item => {
-        if (item !== '없음') {
-          total += prices.main[item];
-          summary += `메인: ${item} (${prices.main[item].toLocaleString()}원)\n`;
-        }
-      });
-
-      [side1, side2].forEach(item => {
-        if (item !== '없음') {
-          total += prices.side[item];
-          summary += `사이드: ${item} (${prices.side[item].toLocaleString()}원)\n`;
-        }
-      });
+      else {
+        [main1, main2].forEach(item => {
+          if (item !== '없음') {
+            total += prices.main[item];
+            summary += `메인: ${item} (${prices.main[item].toLocaleString()}원)\n`;
+          }
+        });
+        [side1, side2].forEach(item => {
+          if (item !== '없음') {
+            total += prices.side[item];
+            summary += `사이드: ${item} (${prices.side[item].toLocaleString()}원)\n`;
+          }
+        });
+      }
 
       if (eventMenu !== '없음') {
         total += prices.event[eventMenu];
