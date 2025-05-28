@@ -121,19 +121,46 @@
       <option value="이벤트">이벤트 메뉴 - 셰프가 선택 (1인당 14,900원)</option>
     </select>
 
-    <!-- 주문자 정보 및 기타 요소는 기존대로 유지 -->
+    <span class="subtitle">👤 주문자 정보</span>
+    <label for="table">테이블 번호:</label>
+    <input type="text" name="테이블 번호" required>
 
-    <script>
-      function toggleSetOptions() {
-        const setMenu = document.getElementById('setMenu').value;
-        const setOptionsDiv = document.getElementById('setOptions');
-        if (setMenu === '선택 안함') {
-          setOptionsDiv.style.display = 'none';
-        } else {
-          setOptionsDiv.style.display = 'block';
-        }
-      }
-    </script>
+    <label for="name">이름:</label>
+    <input type="text" name="이름" required>
+
+    <label for="phone">전화번호:</label>
+    <input type="tel" name="전화번호" required>
+
+    <input type="hidden" name="_subject" value="새 주문이 도착했습니다!">
+    <input type="hidden" name="_captcha" value="false">
+
+    <button id="reviewBtn" type="button" onclick="calculateTotal()">🧾 주문 내역 보기</button>
+    <div id="totalDisplay"></div>
+    <button type="submit">주문하기</button>
   </form>
+
+  <div class="account-info" onclick="copyAccount()">💳 입금 계좌: 국민 945802-00-985831 (클릭 시 복사)</div>
+
+  <script>
+    function toggleSetOptions() {
+      const setMenu = document.getElementById('setMenu').value;
+      const setOptionsDiv = document.getElementById('setOptions');
+      if (setMenu === '선택 안함') {
+        setOptionsDiv.style.display = 'none';
+      } else {
+        setOptionsDiv.style.display = 'block';
+      }
+    }
+
+    function copyAccount() {
+      const temp = document.createElement('textarea');
+      temp.value = '국민 945802-00-985831';
+      document.body.appendChild(temp);
+      temp.select();
+      document.execCommand('copy');
+      document.body.removeChild(temp);
+      alert('계좌번호가 복사되었습니다!');
+    }
+  </script>
 </body>
 </html>
