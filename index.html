@@ -81,7 +81,7 @@
       <option value="부탁해 세트">부탁해 세트 - 메인 1개, 사이드 2개 (36,900원)</option>
     </select>
 
-    <span class="subtitle">🎉 이벤트 메뉴 선택-인증(?)된 셰프들의 스폐셜 안주!!</span>
+    <span class="subtitle">🎉 이벤트 메뉴 선택</span>
     <select id="eventMenu" name="이벤트 메뉴">
       <option value="없음">선택 안함</option>
       <option value="이벤트">이벤트 메뉴 - 셰프가 선택 (1인당 14,900원)</option>
@@ -180,6 +180,7 @@
       const side2 = document.getElementById('side2').value;
 
       let total = 0;
+      let isSet = (set !== '선택 안함');
       let breakdown = '';
 
       let isSet = (set !== '선택 안함');
@@ -189,15 +190,21 @@
         total += prices.set[set];
         breakdown += `- 세트 메뉴: ${set} (${prices.set[set].toLocaleString()}원)
 `;
+      } (${prices.set[set].toLocaleString()}원)
+`;
       } (${prices.set[set].toLocaleString()}원)\n`;
       }
       if (event === '이벤트') {
         total += prices.set['이벤트'];
-        breakdown += `- 이벤트 메뉴: ${event} (${prices.set['이벤트'].toLocaleString()}원)\n`;
+        breakdown += `- 이벤트 메뉴: ${event} (${prices.set['이벤트'].toLocaleString()}원)
+`;
+      } (${prices.set['이벤트'].toLocaleString()}원)\n`;
       }
       if (main1 !== '없음' && prices.main[main1]) {
         if (!isSet) total += prices.main[main1];
         breakdown += `- ${main1}: ${prices.main[main1].toLocaleString()}원${isSet ? ' (세트 포함)' : ''}
+`;
+      }: ${prices.main[main1].toLocaleString()}원${isSet ? ' (세트 포함)' : ''}
 `;
       }: ${prices.main[main1].toLocaleString()}원\n`;
       }
@@ -205,17 +212,23 @@
         if (!isSet) total += prices.main[main2];
         breakdown += `- ${main2}: ${prices.main[main2].toLocaleString()}원${isSet ? ' (세트 포함)' : ''}
 `;
+      }: ${prices.main[main2].toLocaleString()}원${isSet ? ' (세트 포함)' : ''}
+`;
       }: ${prices.main[main2].toLocaleString()}원\n`;
       }
       if (side1 !== '없음' && prices.side[side1]) {
         if (!isSet) total += prices.side[side1];
         breakdown += `- ${side1}: ${prices.side[side1].toLocaleString()}원${isSet ? ' (세트 포함)' : ''}
 `;
+      }: ${prices.side[side1].toLocaleString()}원${isSet ? ' (세트 포함)' : ''}
+`;
       }: ${prices.side[side1].toLocaleString()}원\n`;
       }
       if (side2 !== '없음' && prices.side[side2]) {
         if (!isSet) total += prices.side[side2];
         breakdown += `- ${side2}: ${prices.side[side2].toLocaleString()}원${isSet ? ' (세트 포함)' : ''}
+`;
+      }: ${prices.side[side2].toLocaleString()}원${isSet ? ' (세트 포함)' : ''}
 `;
       }: ${prices.side[side2].toLocaleString()}원\n`;
       }
