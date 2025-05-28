@@ -180,31 +180,30 @@
   let total = 0;
   let breakdown = '';
 
-  if (set !== '선택 안함' && prices.set[set]) {
-    total = prices.set[set];
-    breakdown += `- 세트 메뉴: ${set} (${total.toLocaleString()}원)
+  if (prices.set[set]) {
+    total += prices.set[set];
+    breakdown += `- 세트 메뉴: ${set} (${prices.set[set].toLocaleString()}원)
 `;
-  } else {
-    if (main1 !== '없음' && prices.main[main1]) {
-      total += prices.main[main1];
-      breakdown += `- ${main1}: ${prices.main[main1].toLocaleString()}원
+  }
+  if (main1 !== '없음' && prices.main[main1]) {
+    total += prices.main[main1];
+    breakdown += `- ${main1}: ${prices.main[main1].toLocaleString()}원
 `;
-    }
-    if (main2 !== '없음' && prices.main[main2]) {
-      total += prices.main[main2];
-      breakdown += `- ${main2}: ${prices.main[main2].toLocaleString()}원
+  }
+  if (main2 !== '없음' && prices.main[main2]) {
+    total += prices.main[main2];
+    breakdown += `- ${main2}: ${prices.main[main2].toLocaleString()}원
 `;
-    }
-    if (side1 !== '없음' && prices.side[side1]) {
-      total += prices.side[side1];
-      breakdown += `- ${side1}: ${prices.side[side1].toLocaleString()}원
+  }
+  if (side1 !== '없음' && prices.side[side1]) {
+    total += prices.side[side1];
+    breakdown += `- ${side1}: ${prices.side[side1].toLocaleString()}원
 `;
-    }
-    if (side2 !== '없음' && prices.side[side2]) {
-      total += prices.side[side2];
-      breakdown += `- ${side2}: ${prices.side[side2].toLocaleString()}원
+  }
+  if (side2 !== '없음' && prices.side[side2]) {
+    total += prices.side[side2];
+    breakdown += `- ${side2}: ${prices.side[side2].toLocaleString()}원
 `;
-    }
   }
 
   document.getElementById('totalDisplay').innerText =
