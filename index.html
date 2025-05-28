@@ -75,45 +75,43 @@
     <input type="hidden" id="totalHidden" name="총 금액">
 
     <span class="subtitle">🍱 세트 메뉴 선택</span>
-    <select id="setMenu" name="세트 메뉴" onchange="toggleSetOptions()">
+    <select id="setMenu" name="세트 메뉴">
       <option value="선택 안함">선택 안함</option>
       <option value="냉장고 세트">냉장고 세트 - 메인 2개, 사이드 1개 (43,900원)</option>
       <option value="부탁해 세트">부탁해 세트 - 메인 1개, 사이드 2개 (36,900원)</option>
     </select>
 
-    <div id="setOptions" style="display: none;">
-      <span class="subtitle">🍖 세트용 메인 메뉴</span>
-      <select id="setMain1" name="세트 메인 1">
-        <option value="없음">선택 안함</option>
-        <option value="우삼겹&비빔면">우삼겹&비빔면</option>
-        <option value="어묵탕">어묵탕</option>
-        <option value="우삼겹숙주볶음">우삼겹숙주볶음</option>
-      </select>
-      <select id="setMain2" name="세트 메인 2">
-        <option value="없음">선택 안함</option>
-        <option value="우삼겹&비빔면">우삼겹&비빔면</option>
-        <option value="어묵탕">어묵탕</option>
-        <option value="우삼겹숙주볶음">우삼겹숙주볶음</option>
-      </select>
+    <span class="subtitle">🍖 메인 메뉴 선택</span>
+    <select id="mainMenu1" name="메인 메뉴 1">
+      <option value="없음">선택 안함</option>
+      <option value="우삼겹&비빔면">우삼겹&비빔면 (19,900원)</option>
+      <option value="어묵탕">어묵탕 (15,900원)</option>
+      <option value="우삼겹숙주볶음">우삼겹숙주볶음 (19,900원)</option>
+    </select>
+    <select id="mainMenu2" name="메인 메뉴 2">
+      <option value="없음">선택 안함</option>
+      <option value="우삼겹&비빔면">우삼겹&비빔면 (19,900원)</option>
+      <option value="어묵탕">어묵탕 (15,900원)</option>
+      <option value="우삼겹숙주볶음">우삼겹숙주볶음 (19,900원)</option>
+    </select>
 
-      <span class="subtitle">🥗 세트용 사이드 메뉴</span>
-      <select id="setSide1" name="세트 사이드 1">
-        <option value="없음">선택 안함</option>
-        <option value="토마토 계란볶음">토마토 계란볶음</option>
-        <option value="먹태">먹태</option>
-        <option value="짜계치">짜계치</option>
-        <option value="황도 화채">황도 화채</option>
-        <option value="콘치즈">콘치즈</option>
-      </select>
-      <select id="setSide2" name="세트 사이드 2">
-        <option value="없음">선택 안함</option>
-        <option value="토마토 계란볶음">토마토 계란볶음</option>
-        <option value="먹태">먹태</option>
-        <option value="짜계치">짜계치</option>
-        <option value="황도 화채">황도 화채</option>
-        <option value="콘치즈">콘치즈</option>
-      </select>
-    </div>
+    <span class="subtitle">🥗 사이드 메뉴 선택</span>
+    <select id="sideMenu1" name="사이드 메뉴 1">
+      <option value="없음">선택 안함</option>
+      <option value="토마토 계란볶음">토마토 계란볶음 (9,900원)</option>
+      <option value="먹태">먹태 (9,900원)</option>
+      <option value="짜계치">짜계치 (6,900원)</option>
+      <option value="황도 화채">황도 화채 (6,900원)</option>
+      <option value="콘치즈">콘치즈 (5,900원)</option>
+    </select>
+    <select id="sideMenu2" name="사이드 메뉴 2">
+      <option value="없음">선택 안함</option>
+      <option value="토마토 계란볶음">토마토 계란볶음 (9,900원)</option>
+      <option value="먹태">먹태 (9,900원)</option>
+      <option value="짜계치">짜계치 (6,900원)</option>
+      <option value="황도 화채">황도 화채 (6,900원)</option>
+      <option value="콘치즈">콘치즈 (5,900원)</option>
+    </select>
 
     <span class="subtitle">🎉 이벤트 메뉴 선택</span>
     <select id="eventMenu" name="이벤트 메뉴">
@@ -142,14 +140,71 @@
   <div class="account-info" onclick="copyAccount()">💳 입금 계좌: 국민 945802-00-985831 (클릭 시 복사)</div>
 
   <script>
-    function toggleSetOptions() {
+    function calculateTotal() {
       const setMenu = document.getElementById('setMenu').value;
-      const setOptionsDiv = document.getElementById('setOptions');
-      if (setMenu === '선택 안함') {
-        setOptionsDiv.style.display = 'none';
-      } else {
-        setOptionsDiv.style.display = 'block';
+      const main1 = document.getElementById('mainMenu1').value;
+      const main2 = document.getElementById('mainMenu2').value;
+      const side1 = document.getElementById('sideMenu1').value;
+      const side2 = document.getElementById('sideMenu2').value;
+      const eventMenu = document.getElementById('eventMenu').value;
+
+      const prices = {
+        set: {
+          '냉장고 세트': 43900,
+          '부탁해 세트': 36900
+        },
+        main: {
+          '우삼겹&비빔면': 19900,
+          '어묵탕': 15900,
+          '우삼겹숙주볶음': 19900
+        },
+        side: {
+          '토마토 계란볶음': 9900,
+          '먹태': 9900,
+          '짜계치': 6900,
+          '황도 화채': 6900,
+          '콘치즈': 5900
+        },
+        event: {
+          '이벤트': 14900
+        }
+      };
+
+      let total = 0;
+      let summary = '';
+
+      if (setMenu !== '선택 안함') {
+        total += prices.set[setMenu];
+        summary += `세트 메뉴: ${setMenu} (${prices.set[setMenu].toLocaleString()}원)\n`;
       }
+
+      [main1, main2].forEach(item => {
+        if (item !== '없음') {
+          total += prices.main[item];
+          summary += `메인: ${item} (${prices.main[item].toLocaleString()}원)\n`;
+        }
+      });
+
+      [side1, side2].forEach(item => {
+        if (item !== '없음') {
+          total += prices.side[item];
+          summary += `사이드: ${item} (${prices.side[item].toLocaleString()}원)\n`;
+        }
+      });
+
+      if (eventMenu !== '없음') {
+        total += prices.event[eventMenu];
+        summary += `이벤트 메뉴: ${eventMenu} (${prices.event[eventMenu].toLocaleString()}원)\n`;
+      }
+
+      summary += `총 금액: ${total.toLocaleString()}원`;
+      document.getElementById('totalDisplay').innerText = summary;
+      document.getElementById('totalHidden').value = `${total.toLocaleString()}원`;
+    }
+
+    function handleSubmit() {
+      calculateTotal();
+      return true;
     }
 
     function copyAccount() {
