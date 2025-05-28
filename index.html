@@ -12,7 +12,7 @@
   </style>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <title>냉장고를 부탁해?</title>
+  <title>냉장고를 부탁해?</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <style>
     body {
@@ -36,17 +36,14 @@
       transition: all 0.2s ease;
       box-shadow: 0 2px 6px rgba(0,0,0,0.05);
     }
-
     select {
       background: white;
       border: 2px solid #bbe6ff;
     }
-
     select:hover {
       background: #d0f0ff;
       border-color: #7ddfff;
     }
-
     select:focus {
       outline: none;
       border-color: #33ccff;
@@ -74,15 +71,19 @@
 </head>
 <body>
   <h1>냉장고를 부탁해? 주문서</h1>
-
   <form id="orderForm" action="https://formsubmit.co/seongwong421@gmail.com" method="POST" onsubmit="return handleSubmit()">
     <input type="hidden" id="totalHidden" name="총 금액">
 
     <span class="subtitle">세트 메뉴</span>
     <select id="setMenu" name="세트 메뉴">
       <option value="선택 안함">선택 안함</option>
-      <option value="냉장고 세트">냉장고 세트 - 메인 2개, 사이드 1개 (44,900원)</option>
-      <option value="부탁해 세트">부탁해 세트 - 메인 1개, 사이드 2개 (39,900원)</option>
+      <option value="냉장고 세트">냉장고 세트 - 메인 2개, 사이드 1개 (43,900원)</option>
+      <option value="부탁해 세트">부탁해 세트 - 메인 1개, 사이드 2개 (36,900원)</option>
+    </select>
+
+    <span class="subtitle">이벤트 메뉴</span>
+    <select id="eventMenu" name="이벤트 메뉴">
+      <option value="없음">선택 안함</option>
       <option value="이벤트">이벤트 메뉴 - 셰프가 선택 (1인당 14,900원)</option>
     </select>
 
@@ -152,8 +153,8 @@
 
     const prices = {
       set: {
-        '냉장고 세트': 44900,
-        '부탁해 세트': 39900,
+        '냉장고 세트': 43900,
+        '부탁해 세트': 36900,
         '이벤트': 14900
       },
       main: {
@@ -172,6 +173,7 @@
 
     function calculateTotal() {
       const set = document.getElementById('setMenu').value;
+      const event = document.getElementById('eventMenu').value;
       const main1 = document.getElementById('main1').value;
       const main2 = document.getElementById('main2').value;
       const side1 = document.getElementById('side1').value;
@@ -183,6 +185,10 @@
       if (prices.set[set]) {
         total += prices.set[set];
         breakdown += `- 세트 메뉴: ${set} (${prices.set[set].toLocaleString()}원)\n`;
+      }
+      if (event === '이벤트') {
+        total += prices.set['이벤트'];
+        breakdown += `- 이벤트 메뉴: ${event} (${prices.set['이벤트'].toLocaleString()}원)\n`;
       }
       if (main1 !== '없음' && prices.main[main1]) {
         total += prices.main[main1];
@@ -204,6 +210,7 @@
       document.getElementById('totalDisplay').innerText =
         `🧊 선택한 메뉴 내역\n` +
         `세트: ${set}\n` +
+        `이벤트: ${event}\n` +
         `메인: ${main1}` + (main2 !== '없음' ? ", " + main2 : '') + "\n" +
         `사이드: ${side1}` + (side2 !== '없음' ? ", " + side2 : '') + "\n\n" +
         breakdown +
