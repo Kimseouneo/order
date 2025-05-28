@@ -171,17 +171,56 @@
     };
 
     function calculateTotal() {
-      const set = document.getElementById('setMenu').value;
-      const main1 = document.getElementById('main1').value;
-      const main2 = document.getElementById('main2').value;
-      const side1 = document.getElementById('side1').value;
-      const side2 = document.getElementById('side2').value;
+  const set = document.getElementById('setMenu').value;
+  const main1 = document.getElementById('main1').value;
+  const main2 = document.getElementById('main2').value;
+  const side1 = document.getElementById('side1').value;
+  const side2 = document.getElementById('side2').value;
 
-      let total = 0;
+  let total = 0;
+  let breakdown = '';
 
-      if (prices.set[set]) {
-        total = prices.set[set];
-      } else {
+  if (set !== '선택 안함' && prices.set[set]) {
+    total = prices.set[set];
+    breakdown += `- 세트 메뉴: ${set} (${total.toLocaleString()}원)
+`;
+  } else {
+    if (main1 !== '없음' && prices.main[main1]) {
+      total += prices.main[main1];
+      breakdown += `- ${main1}: ${prices.main[main1].toLocaleString()}원
+`;
+    }
+    if (main2 !== '없음' && prices.main[main2]) {
+      total += prices.main[main2];
+      breakdown += `- ${main2}: ${prices.main[main2].toLocaleString()}원
+`;
+    }
+    if (side1 !== '없음' && prices.side[side1]) {
+      total += prices.side[side1];
+      breakdown += `- ${side1}: ${prices.side[side1].toLocaleString()}원
+`;
+    }
+    if (side2 !== '없음' && prices.side[side2]) {
+      total += prices.side[side2];
+      breakdown += `- ${side2}: ${prices.side[side2].toLocaleString()}원
+`;
+    }
+  }
+
+  document.getElementById('totalDisplay').innerText =
+    `🧊 선택한 메뉴 내역
+` +
+    `세트: ${set}
+` +
+    `메인: ${main1}` + (main2 !== '없음' ? ", " + main2 : '') + "
+" +
+    `사이드: ${side1}` + (side2 !== '없음' ? ", " + side2 : '') + "
+
+" +
+    breakdown +
+    `총 금액: ${total.toLocaleString()}원`;
+  document.getElementById('totalHidden').value = total.toLocaleString() + '원';
+} else {
         if (prices.main[main1]) total += prices.main[main1];
         if (prices.main[main2]) total += prices.main[main2];
         if (prices.side[side1]) total += prices.side[side1];
@@ -190,17 +229,26 @@
 
       let breakdown = '';
       if (!prices.set[set]) {
-        if (prices.main[main1]) breakdown += `- ${main1}: ${prices.main[main1].toLocaleString()}원\n`;
-        if (prices.main[main2]) breakdown += `- ${main2}: ${prices.main[main2].toLocaleString()}원\n`;
-        if (prices.side[side1]) breakdown += `- ${side1}: ${prices.side[side1].toLocaleString()}원\n`;
-        if (prices.side[side2]) breakdown += `- ${side2}: ${prices.side[side2].toLocaleString()}원\n`;
+        if (prices.main[main1]) breakdown += `- ${main1}: ${prices.main[main1].toLocaleString()}원
+`;
+        if (prices.main[main2]) breakdown += `- ${main2}: ${prices.main[main2].toLocaleString()}원
+`;
+        if (prices.side[side1]) breakdown += `- ${side1}: ${prices.side[side1].toLocaleString()}원
+`;
+        if (prices.side[side2]) breakdown += `- ${side2}: ${prices.side[side2].toLocaleString()}원
+`;
       }
 
       document.getElementById('totalDisplay').innerText =
-        `🧊 선택한 메뉴 내역\n` +
-        `세트: ${set}\n` +
-        `메인: ${main1}` + (main2 !== '없음' ? ", " + main2 : '') + "\n" +
-        `사이드: ${side1}` + (side2 !== '없음' ? ", " + side2 : '') + "\n\n" +
+        `🧊 선택한 메뉴 내역
+` +
+        `세트: ${set}
+` +
+        `메인: ${main1}` + (main2 !== '없음' ? ", " + main2 : '') + "
+" +
+        `사이드: ${side1}` + (side2 !== '없음' ? ", " + side2 : '') + "
+
+" +
         breakdown +
         `총 금액: ${total.toLocaleString()}원`;
       document.getElementById('totalHidden').value = total.toLocaleString() + '원';
